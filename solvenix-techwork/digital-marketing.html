@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing - Solvenix Techwork</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: white;
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 140px;
+            width: auto;
+            transform-origin: left center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #2C2C2C;
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            padding: 10px 0;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #E6782F;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #E6782F;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: #E6782F;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #F5F5F5;
+            border-radius: 16px;
+            padding: 16px 0;
+            min-width: 200px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 24px;
+            text-decoration: none;
+            color: #2C2C2C;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            color: #E6782F;
+        }
+
+        .section-intro {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+
+        .intro-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .intro-heading {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: #1a1a2e;
+            margin-bottom: 25px;
+        }
+
+        .intro-text {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+.intro-image{
+    margin-top: 40px;
+    width: 100%;
+    max-width: 700px;
+    height: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.intro-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+        .intro-image-placeholder {
+            color: #888;
+            font-size: 16px;
+        }
+
+        .section-services {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .services-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .service-block {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .service-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-block h3 {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .service-block p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        .section-features {
+            width: 100%;
+            padding: 80px 40px;
+            background: white;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .feature-card {
+            flex: 1;
+            max-width: 350px;
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .feature-card svg {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .feature-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.7;
+            text-align: justify;
+            margin: 0;
+        }
+
+        .footer {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 60px 20px 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section {
+            padding: 0 15px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        .footer-heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #4a90e2;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-contact li {
+            color: #cccccc;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .intro-image {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .footer-section {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 20px;
+            }
+
+            .logo img {
+                height: 100px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            .nav-link {
+                font-size: 13px;
+            }
+
+            .intro-heading {
+                font-size: 1.8rem;
+            }
+
+            .intro-text {
+                font-size: 15px;
+            }
+
+            .intro-image {
+                height: 250px;
+            }
+
+            .service-block h3 {
+                font-size: 1.5rem;
+            }
+
+            .features-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Logo">
+            </div>
+            <nav>
+                <a href="home.html" class="nav-link">Home</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">OUR SERVICES </a>
+                    <div class="dropdown-menu">
+                        <a href="website-development.html">Website Development</a>
+                        <a href="digital-marketing.html">Digital Marketing</a>
+                        <a href="project-management.html">Project Management</a>
+                        <a href="ad-shooting.html">Ad Shooting</a>
+                        <a href="automation-services.html">Automation Services</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section-intro">
+        <div class="intro-container fade-in">
+            <h1 class="intro-heading">Digital Marketing Services</h1>
+            <p class="intro-text">
+                Digital marketing is the strategic use of online platforms, search engines, social media, and various digital channels to promote products, services, and brands. It helps businesses reach their target audience, generate leads, and drive growth by connecting with potential customers where they spend most of their time—online. Unlike traditional marketing, digital marketing offers precise targeting, real-time analytics, and cost-effective strategies that can be customized to fit any budget. Businesses today rely heavily on digital marketing to build brand awareness, engage with customers, increase website traffic, and boost sales. Whether through social media campaigns, search engine optimization, pay-per-click advertising, or email marketing, digital marketing provides the tools and techniques necessary for businesses to thrive in the competitive online landscape and achieve long-term success.
+            </p>
+            <div class="intro-image fade-in">
+               <img src="assets/dm.jpg" alt="Digital Marketing">
+            </div>
+        </div>
+    </section>
+
+    <section class="section-services">
+        <div class="services-container">
+            <div class="service-block fade-in">
+                <h3>Meta Ads</h3>
+                <p>Meta Ads, including Facebook and Instagram advertising, provide powerful platforms for businesses to reach targeted audiences based on demographics, interests, behaviors, and location. These advertising solutions help businesses generate quality leads, increase brand visibility, and drive conversions through visually appealing ad formats. With advanced targeting options and detailed analytics, businesses can optimize their campaigns in real-time to maximize return on investment. Whether you want to increase page likes, boost post engagement, or drive traffic to your website, Meta Ads offers comprehensive solutions for businesses of all sizes to connect with potential customers effectively.</p>
+            </div>
+
+            <div class="service-block fade-in">
+                <h3>Google Ads</h3>
+                <p>Google Ads is a powerful online advertising platform that helps businesses appear prominently in search results when customers are actively searching for products or services. By bidding on relevant keywords, businesses can display their ads at the top of search results, reaching customers at the exact moment they are looking for solutions. Google Ads offers various campaign types including Search Ads, Display Ads, Shopping Ads, and Video Ads, allowing businesses to choose the best format for their goals. With pay-per-click pricing, businesses only pay when someone clicks on their ad, making it a cost-effective way to attract high-intent customers actively seeking their products or services.</p>
+            </div>
+
+            <div class="service-block fade-in">
+                <h3>Social Media Management</h3>
+                <p>Social media management involves creating, scheduling, analyzing, and engaging with content across social media platforms to build brand awareness and maintain a strong online presence. Professional social media management helps businesses connect with their audience, respond to comments and messages promptly, and create meaningful relationships with followers. Regular posting of engaging content, maintaining consistent branding, and leveraging analytics to understand audience preferences are key components of effective social media management. By building a loyal community online, businesses can increase brand trust, drive website traffic, and generate leads through platforms like Facebook, Instagram, LinkedIn, and Twitter.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-features">
+        <div class="features-container">
+            <div class="feature-card fade-in">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#E6782F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <line x1="22" y1="12" x2="18" y2="12"></line>
+                    <line x1="6" y1="12" x2="2" y2="12"></line>
+                    <line x1="12" y1="6" x2="12" y2="2"></line>
+                    <line x1="12" y1="22" x2="12" y2="18"></line>
+                </svg>
+                <p>Digital marketing enables businesses to target specific demographics, interests, and behaviors, ensuring your message reaches the right audience at the right time. Advanced targeting options across platforms like Facebook, Google, and Instagram help maximize campaign effectiveness and conversion rates.</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#E6782F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                    <line x1="2" y1="20" x2="22" y2="20"></line>
+                </svg>
+                <p>Digital marketing provides detailed analytics and insights that track campaign performance, user behavior, and conversion metrics in real-time. This data-driven approach helps businesses make informed decisions, optimize strategies, and improve return on investment through continuous performance monitoring.</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#E6782F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 6l-9.5 9.5-5-5L1 18"></path>
+                    <path d="M17 6h6v6"></path>
+                </svg>
+                <p>Consistent digital marketing efforts help businesses build strong brand recognition and grow their online presence over time. Through regular engagement, quality content, and strategic campaigns, businesses can establish trust with their audience, expand their reach, and achieve sustainable long-term growth in the digital marketplace.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-logo">Solvenix Techwork</h3>
+                <p class="footer-description">Your trusted partner for web development, digital marketing, and automation solutions.</p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-heading">Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="website-development.html">Website Development</a></li>
+                    <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                    <li><a href="#services">Automation Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-heading">Contact Us</h4>
+                <ul class="footer-contact">
+                    <li>Email: solvenixtechwork@gmail.com</li>
+                    <li>Phone: +91 9944505342</li>
+                    <li>Address: Ganapathy, Coimbatore, Tamil Nadu</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Solvenix Techwork. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.to('.section-intro .fade-in', {
+            scrollTrigger: {
+                trigger: '.section-intro',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
+
+        gsap.to('.intro-image', {
+            scrollTrigger: {
+                trigger: '.intro-image',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        gsap.to('.service-block', {
+            scrollTrigger: {
+                trigger: '.services-container',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
+
+        gsap.to('.feature-card', {
+            scrollTrigger: {
+                trigger: '.features-container',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+
+        gsap.to('.footer-section', {
+            scrollTrigger: {
+                trigger: '.footer',
+                start: 'top 90%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+    </script>
+</body>
+</html>
